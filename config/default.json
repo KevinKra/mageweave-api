@@ -1,0 +1,4 @@
+{
+	"mongoURI": "mongodb+srv://kevin:leoncastille@cluster0-rqs5p.mongodb.net/test?retryWrites=true&w=majority",
+	"jwtSecret": "secretApplesauce"
+}
