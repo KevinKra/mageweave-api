@@ -9,6 +9,9 @@ const router = express.Router();
 // require User model
 const User = require('../../models/User');
 
+// @route   GET api/auth
+// @desc    test route for auth
+// @access  Private
 router.get('/', auth, async (req, res) => {
 	const { id } = req.user;
 	try {
@@ -38,7 +41,7 @@ router.post(
 		// handle request
 		const { email, password } = req.body;
 		try {
-			// user doesnt exist
+			// user doesn't exist
 			let user = await User.findOne({ email });
 			if (!user) {
 				return res.status(400).json({
