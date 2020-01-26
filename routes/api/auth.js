@@ -1,15 +1,18 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
+const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 const router = express.Router();
 
 // require User model
 const User = require('../../models/User');
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
 	const { id } = req.user;
 	try {
-		const user = await user.findById(id).select('-password');
+		const user = await User.findById(id).select('-password');
 		res.json(user);
 	} catch (error) {
 		console.log(error.message);
@@ -55,7 +58,21 @@ router.post(
 
 			// passwords match
 			res.status(200).send('User logged in');
+
 			//! jwt
+			const payload = {
+				user: { id: user.id }
+			};
+			jwt.sign(
+				payload,
+				config.get('jwtSecret'),
+				{ expiresIn: 36000 },
+				(error, token) => {
+					if (error) throw error;
+					console.log(token);
+					res.json({ token });
+				}
+			);
 		} catch (error) {
 			console.log(error.message);
 			res.status(500).send('Server Error');
