@@ -17,9 +17,7 @@ router.post(
 	'/',
 	[
 		// check inputs
-		check('name', 'Please enter a name')
-			.not()
-			.isEmpty(),
+		check('name', 'Please enter a name').notEmpty(),
 		check('email', 'Please enter a valid email').isEmail(),
 		check(
 			'password',
