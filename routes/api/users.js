@@ -19,7 +19,7 @@ router.post(
 		check('email', 'Please enter a valid email').isEmail(),
 		check(
 			'password',
-			'Please enter an email with 8 or more characters'
+			'Please enter a password with 8 or more characters'
 		).isLength({ min: 8 })
 	],
 	async (req, res) => {
